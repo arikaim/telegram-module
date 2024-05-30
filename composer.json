@@ -1,0 +1,19 @@
+{
+    "name": "arikaim/telegram-module",
+    "description": "Arikaim CMS telegram api module",
+    "keywords": ["Module", "Arikaim CMS","Telegram"],
+    "type": "arikaim-module",
+    "license": "GPL-3.0-or-later",
+    "authors": [{
+        "name": "",
+        "email": "info@arikaim.com",
+        "homepage": "http://arikaim.com"
+    }],
+    "require": {
+        "arikaim/installer": "*",
+        "longman/telegram-bot": "*"
+    },
+    "extra": {
+        "path": "content"
+    }
+}

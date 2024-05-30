@@ -1,0 +1,16 @@
+{
+    "title": "Telegram api module",
+    "name": "telegram",
+    "version": "1.0.0",
+    "package-type": "module",
+    "class": "Telegram",
+    "description": "Telegram api module.",
+    "type": "package",
+    "category": "telegram",
+    "repository": "https://github.com/arikaim/telegram-module",
+    "require": {
+        "composer": [
+            "longman/telegram-bot"
+        ]
+    }
+}
