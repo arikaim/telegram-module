@@ -23,6 +23,13 @@ class TelegramApiDriver implements DriverInterface
     protected $telegram;
 
     /**
+     * Bot username
+     *
+     * @var string|null
+     */
+    protected $botUsername;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -53,9 +60,18 @@ class TelegramApiDriver implements DriverInterface
     public function initDriver($properties)
     {
         $apiKey = \trim($properties->getValue('api_key',''));
-        $botUsername = \trim($properties->getValue('bot_username',''));
+        $this->botUsername = \trim($properties->getValue('bot_username',''));
+        $this->telegram = new Telegram($apiKey,$this->botUsername);
+    }
 
-        $this->telegram = new Telegram($apiKey,$botUsername);
+    /**
+     * get webhook url
+     *
+     * @return string
+     */
+    public function getWebhookUrl(): string
+    {
+        return Url::BASE_URL . '/api/telegram/webhook/' . ($this->botUsername ?? '');
     }
 
     /**
@@ -66,14 +82,6 @@ class TelegramApiDriver implements DriverInterface
      */
     public function createDriverConfig($properties)
     {
-        $properties->property('webhook_url',function($property) {
-            $property
-                ->title('Webhook url')
-                ->type('text')   
-                ->value(Url::BASE_URL)               
-                ->readonly(true);              
-        });  
-
         $properties->property('api_key',function($property) {
             $property
                 ->title('Api Key')
