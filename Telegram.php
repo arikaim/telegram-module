@@ -10,6 +10,7 @@
 namespace Arikaim\Modules\Telegram;
 
 use Arikaim\Core\Extension\Module;
+use Arikaim\Modules\Telegram\Console\GetUpdatesCommand;
 
 /**
  * Telegram module class
@@ -23,6 +24,8 @@ class Telegram extends Module
      */
     public function install()
     {
-        $this->installDriver('Arikaim\\Modules\\Telegram\\Drivers\\TelegramApiDriver');          
+        $this->installDriver('Arikaim\\Modules\\Telegram\\Drivers\\TelegramApiDriver');    
+        
+        $this->registerConsoleCommand(GetUpdatesCommand::class);
     }
 }
