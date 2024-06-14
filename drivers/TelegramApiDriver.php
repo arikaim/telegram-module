@@ -9,7 +9,7 @@ use Arikaim\Core\Interfaces\Driver\DriverInterface;
 use Arikaim\Core\Http\Url;
 
 /**
- * Driver class
+ * Telegram driver class
  */
 class TelegramApiDriver implements DriverInterface
 {   
@@ -28,6 +28,13 @@ class TelegramApiDriver implements DriverInterface
      * @var string|null
      */
     protected $botUsername;
+
+    /**
+     * Web hook secret token
+     *
+     * @var string|null
+     */
+    protected $secretToken;
 
     /**
      * Constructor
@@ -53,6 +60,16 @@ class TelegramApiDriver implements DriverInterface
     }
 
     /**
+     * Get web hook secret token
+     *
+     * @return string|null
+     */
+    public function getSecretToken(): ?string
+    {
+        return $this->secretToken;
+    }
+
+    /**
      * Initialize driver
      *
      * @return void
@@ -61,6 +78,8 @@ class TelegramApiDriver implements DriverInterface
     {
         $apiKey = \trim($properties->getValue('api_key',''));
         $this->botUsername = \trim($properties->getValue('bot_username',''));
+        $this->secretToken = $properties->getValue('secret_token',null);
+
         $this->telegram = new Telegram($apiKey,$this->botUsername);
     }
 
@@ -92,6 +111,13 @@ class TelegramApiDriver implements DriverInterface
         $properties->property('bot_username',function($property) {
             $property
                 ->title('Bot username')
+                ->type('text')                      
+                ->readonly(false);              
+        }); 
+
+        $properties->property('secret_token',function($property) {
+            $property
+                ->title('Webhook secret token')
                 ->type('text')                      
                 ->readonly(false);              
         }); 
