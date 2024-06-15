@@ -13,9 +13,9 @@ use Arikaim\Core\Console\ConsoleCommand;
 use Arikaim\Core\Actions\Actions;
 
 /**
- * Get updaes telegram command
+ * GetMe telegram command
  */
-class GetUpdatesCommand extends ConsoleCommand
+class GetMeCommand extends ConsoleCommand
 {  
     /**
      * Configure command
@@ -24,8 +24,8 @@ class GetUpdatesCommand extends ConsoleCommand
      */
     protected function configure()
     {
-        $this->setName('telegram:updates');
-        $this->setDescription('Telegram get updates');    
+        $this->setName('telegram:getMe');
+        $this->setDescription('Telegram getMe command');    
     }
 
     /**
@@ -39,14 +39,13 @@ class GetUpdatesCommand extends ConsoleCommand
     {
         $this->showTitle();
 
-        $action = Actions::createFromModule('GetUpdates','telegram',[          
+        $action = Actions::createFromModule('GetMe','telegram',[          
         ])->getAction();
        
         $action->run();
 
         if ($action->hasError() == false) {
             $response = $action->get('response');
-            
             $data = $response->jsonSerialize();
             print_r($data);
 

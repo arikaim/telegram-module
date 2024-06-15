@@ -70,6 +70,16 @@ class TelegramApiDriver implements DriverInterface
     }
 
     /**
+     * Get bot username
+     *
+     * @return string
+     */
+    public function getBotUsername(): string
+    {
+        return $this->botUsername;
+    }
+
+    /**
      * Initialize driver
      *
      * @return void

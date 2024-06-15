@@ -6,9 +6,9 @@ use Arikaim\Core\Actions\Action;
 use Longman\TelegramBot\Request;
 
 /**
-* Get updates action
+* getMe telegram action
 */
-class GetUpdates extends Action 
+class GetMe extends Action 
 {
     /**
      * Init action
@@ -29,17 +29,15 @@ class GetUpdates extends Action
     {
         global $arikaim;
 
-        $filter = $this->getOption('filter',[]);
-        
-        $driver = $arikaim->get('driver')->create('telegram.api');
-        $driver->telegram()->useGetUpdatesWithoutDatabase();
+        $arikaim->get('driver')->create('telegram.api');
 
-        $response = $driver->telegram()->handleGetUpdates($filter);
+        $response = Request::getMe([]);
 
         if ($response->isOk() == false) {
             $this->error($response->getDescription());
         } else {
             $this->result('response',$response);
         }
+       
     }
 }
