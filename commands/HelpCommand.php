@@ -26,7 +26,7 @@ class HelpCommand extends UserCommand
     /**
      * @var string
      */
-    protected $description = 'Commands help';
+    protected $description = 'Help';
 
     /**
      * @var string
@@ -46,14 +46,19 @@ class HelpCommand extends UserCommand
      */
     public function execute(): ServerResponse
     {
-        $commandText = \trim($this->getMessage()->getText(true));
+        global $arikaim;
 
-        $commands = array_filter($this->telegram->getCommandsList(), function ($command): bool {
+        $message = $this->getMessage();
+        $commandText = \trim($message->getText(true));
+
+        $arikaim->get('logger')->info("Handle help: " . $commandText);
+
+        $commands = array_filter($this->telegram->getCommandsList(), function($command): bool {
             return $command->isUserCommand() && $command->showInHelp() && $command->isEnabled();
         });
 
         if ($commandText === '') {
-            $text = '*Commands:' . PHP_EOL;
+            $text = 'Commands:' . PHP_EOL;
             foreach ($commands as $command) {
                 $text .= '/' . $command->getName() . ' - ' . $command->getDescription() . PHP_EOL;
             }
