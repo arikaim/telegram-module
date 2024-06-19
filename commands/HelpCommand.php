@@ -57,7 +57,7 @@ class HelpCommand extends UserCommand
             return $command->isUserCommand() && $command->showInHelp() && $command->isEnabled();
         });
 
-        if ($commandText === '') {
+        if ($commandText == '') {
             $text = 'Commands:' . PHP_EOL;
             foreach ($commands as $command) {
                 $text .= '/' . $command->getName() . ' - ' . $command->getDescription() . PHP_EOL;
@@ -65,9 +65,9 @@ class HelpCommand extends UserCommand
 
             $text .= PHP_EOL . 'For command help type: /help <command>';
 
-            return $this->replyToChat($text,[
-                'parse_mode' => 'markdown'
-            ]);
+            $arikaim->get('logger')->info("Reply: " . $text);
+
+            return $this->replyToChat($text);
         }
 
         $commandText = \str_replace('/','',$commandText);
@@ -83,13 +83,9 @@ class HelpCommand extends UserCommand
                 $command->getVersion(),
                 $command->getDescription(),
                 $command->getUsage()
-            ),[
-                'parse_mode' => 'markdown'
-            ]);
+            ));
         }
 
-        return $this->replyToChat('No help: Command `/' . $commandText . '` not found',[
-            'parse_mode' => 'markdown'
-        ]);
+        return $this->replyToChat('No help: Command `/' . $commandText . '` not found');
     }
 }
