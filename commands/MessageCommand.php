@@ -21,7 +21,7 @@ class MessageCommand extends SystemCommand
     /**
      * @var string
      */
-    protected $name = 'message';
+    protected $name = 'genericmessage';
 
     /**
      * @var string
@@ -51,9 +51,9 @@ class MessageCommand extends SystemCommand
         ];
 
         $arikaim->get('logger')->info('Message command',$info);
-        
+
         // trigger event
-        $arikaim->get('event')->dispatch('telegram.bot.message',$info);
+        $response = $arikaim->get('event')->dispatch('telegram.bot.message',$info);
 
         return Request::emptyResponse();
     }
