@@ -43,6 +43,7 @@ class MessageCommand extends SystemCommand
         global $arikaim;
 
         $message = $this->getMessage();
+        
         $info = [
             'bot_username' => $this->telegram->getBotUsername(),
             'message'      => $message->getText(true),
@@ -50,10 +51,8 @@ class MessageCommand extends SystemCommand
             'chat_id'      => $message->getChat()->getid()
         ];
 
-        $arikaim->get('logger')->info('Message command',$info);
-
         // trigger event
-        $response = $arikaim->get('event')->dispatch('telegram.bot.message',$info);
+        $arikaim->get('event')->dispatch('telegram.bot.message',$info);
 
         return Request::emptyResponse();
     }
