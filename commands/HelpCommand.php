@@ -39,7 +39,7 @@ class HelpCommand extends UserCommand
     protected $version = '1.0.1';
 
     /**
-     * Main command execution
+     * Run command
      *
      * @return ServerResponse
      * @throws TelegramException
@@ -51,9 +51,7 @@ class HelpCommand extends UserCommand
         $message = $this->getMessage();
         $commandText = \trim($message->getText(true));
 
-        $arikaim->get('logger')->info("Handle help: " . $commandText);
-
-        $commands = array_filter($this->telegram->getCommandsList(), function($command): bool {
+        $commands = \array_filter($this->telegram->getCommandsList(),function($command): bool {
             return $command->isUserCommand() && $command->showInHelp() && $command->isEnabled();
         });
 
@@ -64,9 +62,6 @@ class HelpCommand extends UserCommand
             }
 
             $text .= PHP_EOL . 'For command help type: /help <command>';
-
-            $arikaim->get('logger')->info("Reply: " . $text);
-
             return $this->replyToChat($text);
         }
 
@@ -86,6 +81,6 @@ class HelpCommand extends UserCommand
             ));
         }
 
-        return $this->replyToChat('No help: Command `/' . $commandText . '` not found');
+        return $this->replyToChat('No help: Command /' . $commandText . ' not found');
     }
 }
