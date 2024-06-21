@@ -48,7 +48,7 @@ class MessageCommand extends SystemCommand
             'bot_username' => $this->telegram->getBotUsername(),
             'message'      => $message->getText(true),
             'from'         => $message->getFrom(),
-            'chat_id'      => $message->getChat()->getid()
+            'chat_id'      => $message->getChat()->getId()
         ];
 
         // trigger event
