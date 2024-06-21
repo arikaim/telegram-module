@@ -43,12 +43,14 @@ class MessageCommand extends SystemCommand
         global $arikaim;
 
         $message = $this->getMessage();
-        
+        $chatId =  $message->getChat()->getId();
+
         $info = [
+            'id'           => $message->getMessageId(),
             'bot_username' => $this->telegram->getBotUsername(),
             'message'      => $message->getText(true),
             'from'         => $message->getFrom(),
-            'chat_id'      => $message->getChat()->getId()
+            'chat_id'      => $chatId
         ];
 
         // trigger event
