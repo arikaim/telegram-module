@@ -11,22 +11,21 @@ namespace Arikaim\Modules\Telegram\Commands;
 
 use Longman\TelegramBot\Commands\SystemCommand;
 use Longman\TelegramBot\Entities\ServerResponse;
-use Longman\TelegramBot\Request;
 
 /**
- * Message command class
+ * Command not found command class
  */
-class MessageCommand extends SystemCommand
+class NotFoundCommand extends SystemCommand
 {
     /**
      * @var string
      */
-    protected $name = 'genericmessage';
+    protected $name = 'generic';
 
     /**
      * @var string
      */
-    protected $description = 'Handle message';
+    protected $description = 'Handle not found command';
 
     /**
      * @var string
@@ -43,19 +42,17 @@ class MessageCommand extends SystemCommand
         global $arikaim;
 
         $message = $this->getMessage();
-        $chatId = $message->getChat()->getId();
-
-        $info = [
-            'message_id'   => $message->getMessageId(),
-            'bot_username' => $this->telegram->getBotUsername(),
-            'message'      => $message->getText(true),
-            'from'         => $message->getFrom(),
-            'chat_id'      => $chatId
-        ];
-
+       
         // trigger event
-        $arikaim->get('event')->dispatch('telegram.bot.message',$info);
+        $arikaim->get('event')->dispatch('telegram.bot.command',[
+            'command'   => $message->getCommand(),
+            'user_id'   => $message->getFrom()->getId(),
+            'chat_id'   => $message->getChat()->getId(),
+            'message'   => $message->getText(true),
+        ]);
 
-        return Request::emptyResponse();
+        return $this->replyToChat(
+            'Command not found!' . PHP_EOL . 'Type /help for bot help!'
+        );
     }
 }
