@@ -35,7 +35,7 @@ class DeleteWebhook extends Action
         if ($response->isOk() == false) {
             $this->error($response->getDescription());
         } else {
-            $this->result('response',$response->getResult());
+            $this->result('response',$response);
         }
     }
 }

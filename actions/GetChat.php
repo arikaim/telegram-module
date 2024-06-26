@@ -6,9 +6,9 @@ use Arikaim\Core\Actions\Action;
 use Longman\TelegramBot\Request;
 
 /**
-* Send message action
+* Get chat info telegram action
 */
-class SendMessage extends Action 
+class GetChat extends Action 
 {
     /**
      * Init action
@@ -29,11 +29,7 @@ class SendMessage extends Action
     {
         global $arikaim;
 
-        $message = $this->getOption('message',null);
-        if (empty($message) == true) {
-            $this->error("Message is empty");
-            return false;
-        }
+        $arikaim->get('driver')->create('telegram.api');
 
         $chatId = $this->getOption('chat_id',null);
         if (empty($chatId) == true) {
@@ -41,11 +37,8 @@ class SendMessage extends Action
             return false;
         }
 
-        $arikaim->get('driver')->create('telegram.api');
-
-        $response = Request::sendMessage([
-            'chat_id' => $chatId,
-            'text'    => $message   
+        $response = Request::getChat([
+            'chat_id'   => $chatId
         ]);
 
         if ($response->isOk() == false) {
@@ -63,13 +56,6 @@ class SendMessage extends Action
      */
     protected function initDescriptor(): void
     {
-        $this->descriptor->get('options')->property('message',function($property) {
-            $property
-                ->title('Message')
-                ->type('text-area')                      
-                ->readonly(false);              
-        }); 
-
         $this->descriptor->get('options')->property('chat_id',function($property) {
             $property
                 ->title('Chat Id')
