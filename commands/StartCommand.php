@@ -40,7 +40,7 @@ class StartCommand extends UserCommand
     /**
      * @var bool
      */
-    protected $private_only = true;
+    protected $private_only = false;
 
     /**
      * Show in Help

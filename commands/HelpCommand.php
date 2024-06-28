@@ -43,7 +43,12 @@ class HelpCommand extends UserCommand
      *
      * @var bool
      */
-    protected $show_in_help = false;
+    protected $show_in_help = true;
+
+     /**
+     * @var bool
+     */
+    protected $private_only = false;
 
     /**
      * Run command
