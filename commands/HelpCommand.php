@@ -63,6 +63,10 @@ class HelpCommand extends UserCommand
         $message = $this->getMessage();
         $commandText = \trim($message->getText(true));
 
+        $items = print_r($this->telegram->getCommandsList());
+
+        $this->replyToChat($items);
+
         $commands = \array_filter($this->telegram->getCommandsList(),function($command): bool {
             return (
                 $command->showInHelp() && 
