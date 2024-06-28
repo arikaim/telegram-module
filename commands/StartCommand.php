@@ -9,13 +9,13 @@
 */
 namespace Arikaim\Modules\Telegram\Commands;
 
-use Longman\TelegramBot\Commands\SystemCommand;
+use Longman\TelegramBot\Commands\UserCommand;
 use Longman\TelegramBot\Entities\ServerResponse;
 
 /**
  * Start command class
  */
-class StartCommand extends SystemCommand
+class StartCommand extends UserCommand
 {
     /**
      * @var string

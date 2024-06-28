@@ -59,7 +59,11 @@ class HelpCommand extends UserCommand
         $commandText = \trim($message->getText(true));
 
         $commands = \array_filter($this->telegram->getCommandsList(),function($command): bool {
-            return ($command->showInHelp() && $command->isEnabled());
+            return (
+                $command->showInHelp() && 
+                $command->isEnabled() &&
+                !$command->isSystemCommand()
+            );
         });
 
         if ($commandText == '') {
