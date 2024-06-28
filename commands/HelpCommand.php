@@ -39,6 +39,13 @@ class HelpCommand extends UserCommand
     protected $version = '1.0.1';
 
     /**
+     * Show in Help
+     *
+     * @var bool
+     */
+    protected $show_in_help = false;
+
+    /**
      * Run command
      *
      * @return ServerResponse
@@ -52,7 +59,7 @@ class HelpCommand extends UserCommand
         $commandText = \trim($message->getText(true));
 
         $commands = \array_filter($this->telegram->getCommandsList(),function($command): bool {
-            return $command->showInHelp() && $command->isEnabled();
+            return ($command->showInHelp() && $command->isEnabled());
         });
 
         if ($commandText == '') {

@@ -33,6 +33,13 @@ class NotFoundCommand extends SystemCommand
     protected $version = '1.0.0';
 
     /**
+     * Show in Help
+     *
+     * @var bool
+     */
+    protected $show_in_help = false;
+
+    /**
      * Run command
      *
      * @return ServerResponse
@@ -45,10 +52,10 @@ class NotFoundCommand extends SystemCommand
        
         // trigger event
         $arikaim->get('event')->dispatch('telegram.bot.command',[
-            'command'   => $message->getCommand(),
-            'user_id'   => $message->getFrom()->getId(),
-            'chat_id'   => $message->getChat()->getId(),
-            'message'   => $message->getText(true),
+            'command' => $message->getCommand(),
+            'user'    => $message->getFrom(),
+            'chat'    => $message->getChat(),
+            'message' => $message->getText(true),
         ]);
 
         return $this->replyToChat(

@@ -43,6 +43,13 @@ class StartCommand extends SystemCommand
     protected $private_only = true;
 
     /**
+     * Show in Help
+     *
+     * @var bool
+     */
+    protected $show_in_help = true;
+
+    /**
      * Run command execution
      *
      * @return ServerResponse
@@ -50,6 +57,18 @@ class StartCommand extends SystemCommand
      */
     public function execute(): ServerResponse
     {
+        global $arikaim;
+
+        $message = $this->getMessage();
+
+        // trigger event
+        $arikaim->get('event')->dispatch('telegram.bot.command',[
+            'command' => $message->getCommand(),
+            'user'    => $message->getFrom(),
+            'chat'    => $message->getChat(),
+            'message' => $message->getText(true),
+        ]);
+
         return $this->replyToChat(
             'Hi!' . PHP_EOL . 'Type /help for bot help!'
         );

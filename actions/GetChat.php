@@ -38,7 +38,7 @@ class GetChat extends Action
         }
 
         $response = Request::getChat([
-            'chat_id'   => $chatId
+            'chat_id' => $chatId
         ]);
 
         if ($response->isOk() == false) {

@@ -34,6 +34,13 @@ class MessageCommand extends SystemCommand
     protected $version = '1.0.0';
 
     /**
+     * Show in Help
+     *
+     * @var bool
+     */
+    protected $show_in_help = false;
+    
+    /**
      * Run command
      *
      * @return ServerResponse
