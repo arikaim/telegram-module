@@ -63,11 +63,16 @@ class HelpCommand extends UserCommand
         $message = $this->getMessage();
         $commandText = \trim($message->getText(true));
 
-        $commands = \array_filter($this->telegram->getCommandsList(),function($command): bool {
-            return (
-                $command->showInHelp() && !$command->isSystemCommand()
-            );
-        });
+        $commandClasses = $this->telegram->getCommandClasses();
+        $commands = [];
+        foreach ($commandClasses as $commandClass) {
+            $command = $this->telegram->getCommandObject($commandClass);
+            if ($command != null) {
+                if (($command->showInHelp() == true) && ($command->isSystemCommand() == false)) {
+                    $commands[] = $command;
+                }
+            }
+        }
 
         $arikaim->get('logger')->info('help commands',$commands);
 

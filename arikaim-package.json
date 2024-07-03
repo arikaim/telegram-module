@@ -1,7 +1,7 @@
 {
     "title": "Telegram api module",
     "name": "telegram",
-    "version": "1.0.20",
+    "version": "1.0.21",
     "package-type": "module",
     "description": "Telegram api module.",
     "type": "package",
