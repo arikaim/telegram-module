@@ -63,31 +63,25 @@ class HelpCommand extends UserCommand
 
         $message = $this->getMessage();
         $commandText = \trim($message->getText(true));
+        $commandText = \str_replace('/','',$commandText);
 
         $commandClasses = $this->telegram->getCommandClasses();
         $commands = [];
+        $text = 'Commands:' . PHP_EOL;
         foreach ($commandClasses[Command::AUTH_USER] as $commandName => $commandClass) {
             $command = $this->telegram->getCommandObject($commandName);
             if ($command != null) {
                 if ($command->showInHelp() == true) {
-                    $commands[] = $command;
+                    $commands[$commandName] = $command;
+                    $text .= '/' . $command->getName() . ' - ' . $command->getDescription() . PHP_EOL;
                 }
             }
         }
 
-        $arikaim->get('logger')->info('help commands',$commands);
-
         if (empty($commandText) == true) {
-            $text = 'Commands:' . PHP_EOL;
-            foreach ($commands as $command) {
-                $text .= '/' . $command->getName() . ' - ' . $command->getDescription() . PHP_EOL;
-            }
-
             $text .= PHP_EOL . 'For command help type: /help <command>';
             return $this->replyToChat($text);
         }
-
-        $commandText = \str_replace('/','',$commandText);
 
         if (isset($commands[$commandText]) == true) {
             $command = $commands[$commandText];
