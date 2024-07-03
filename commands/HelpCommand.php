@@ -10,6 +10,7 @@
 namespace Arikaim\Modules\Telegram\Commands;
 
 use Longman\TelegramBot\Commands\UserCommand;
+use Longman\TelegramBot\Commands\Command;
 use Longman\TelegramBot\Entities\ServerResponse;
 use Longman\TelegramBot\Exception\TelegramException;
 
@@ -65,10 +66,10 @@ class HelpCommand extends UserCommand
 
         $commandClasses = $this->telegram->getCommandClasses();
         $commands = [];
-        foreach ($commandClasses as $commandClass) {
+        foreach ($commandClasses[Command::AUTH_USER] as $commandClass) {
             $command = $this->telegram->getCommandObject($commandClass);
             if ($command != null) {
-                if (($command->showInHelp() == true) && ($command->isSystemCommand() == false)) {
+                if ($command->showInHelp() == true) {
                     $commands[] = $command;
                 }
             }
