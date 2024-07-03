@@ -66,8 +66,8 @@ class HelpCommand extends UserCommand
 
         $commandClasses = $this->telegram->getCommandClasses();
         $commands = [];
-        foreach ($commandClasses[Command::AUTH_USER] as $commandClass) {
-            $command = $this->telegram->getCommandObject($commandClass);
+        foreach ($commandClasses[Command::AUTH_USER] as $commandName => $commandClass) {
+            $command = $this->telegram->getCommandObject($commandName);
             if ($command != null) {
                 if ($command->showInHelp() == true) {
                     $commands[] = $command;
