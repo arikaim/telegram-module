@@ -69,7 +69,9 @@ class HelpCommand extends UserCommand
             );
         });
 
-        if ($commandText == '') {
+        $arikaim->get('logger')->info('help commands',$commands);
+
+        if (empty($commandText) == true) {
             $text = 'Commands:' . PHP_EOL;
             foreach ($commands as $command) {
                 $text .= '/' . $command->getName() . ' - ' . $command->getDescription() . PHP_EOL;
