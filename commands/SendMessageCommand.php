@@ -53,12 +53,13 @@ class SendMessageCommand extends UserCommand
      
         // trigger event
         $arikaim->get('event')->dispatch('telegram.bot.command',[
-            'message_id'   => $message->getMessageId(),
-            'bot_username' => $this->telegram->getBotUsername(),
-            'message'      => $message->getText(true),
             'command'      => $message->getCommand(),
+            'bot_username' => $this->telegram->getBotUsername(),
             'from'         => $message->getFrom(),
-            'chat_id'      => $message->getChat()->getId()
+            'user_id'      => $message->getFrom()->getId(),
+            'chat'         => $message->getChat(),
+            'chat_id'      => $message->getChat()->getId(),
+            'message'      => $message->getText(true),
         ]);
 
         return Request::emptyResponse();

@@ -63,10 +63,13 @@ class StartCommand extends UserCommand
 
         // trigger event
         $arikaim->get('event')->dispatch('telegram.bot.command',[
-            'command' => $message->getCommand(),
-            'user'    => $message->getFrom(),
-            'chat'    => $message->getChat(),
-            'message' => $message->getText(true),
+            'command'      => $message->getCommand(),
+            'bot_username' => $this->telegram->getBotUsername(),
+            'from'         => $message->getFrom(),
+            'user_id'      => $message->getFrom()->getId(),
+            'chat'         => $message->getChat(),
+            'chat_id'      => $message->getChat()->getId(),
+            'message'      => $message->getText(true),
         ]);
 
         return $this->replyToChat(
