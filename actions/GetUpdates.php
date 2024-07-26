@@ -17,6 +17,7 @@ class GetUpdates extends Action
     */
     public function init(): void
     {
+        $this->name('telegram.get.updates');
     }
 
     /**

@@ -16,6 +16,7 @@ class DeleteWebhook extends Action
     */
     public function init(): void
     {
+        $this->name('telegram.delete.webhook');
     }
 
     /**

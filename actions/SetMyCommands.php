@@ -17,6 +17,7 @@ class SetMyCommands extends Action
     */
     public function init(): void
     {
+        $this->name('telegram.set.commands');
     }
 
     /**
@@ -30,8 +31,7 @@ class SetMyCommands extends Action
         global $arikaim;
 
         $driver = $arikaim->get('driver')->create('telegram.api');
-        $botName = $driver->getBotUsername();
-
+       
         $commandClasses = $this->getOption('commands',null);
         if (empty($commandClasses) == true) {
             $this->error("Commands list not set");

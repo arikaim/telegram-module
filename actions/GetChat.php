@@ -17,6 +17,7 @@ class GetChat extends Action
     */
     public function init(): void
     {
+        $this->name('telegram.get.chat');
     }
 
     /**

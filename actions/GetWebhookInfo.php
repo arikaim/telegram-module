@@ -17,6 +17,7 @@ class GetWebhookInfo extends Action
     */
     public function init(): void
     {
+        $this->name('telegram.get.webhookinfo');
     }
 
     /**

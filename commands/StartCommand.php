@@ -11,6 +11,7 @@ namespace Arikaim\Modules\Telegram\Commands;
 
 use Longman\TelegramBot\Commands\UserCommand;
 use Longman\TelegramBot\Entities\ServerResponse;
+use Longman\TelegramBot\Request;
 
 /**
  * Start command class
@@ -72,8 +73,6 @@ class StartCommand extends UserCommand
             'message'      => $message->getText(true),
         ]);
 
-        return $this->replyToChat(
-            'Hi!' . PHP_EOL . 'Type /help for bot help!'
-        );
+        return Request::emptyResponse();
     }
 }

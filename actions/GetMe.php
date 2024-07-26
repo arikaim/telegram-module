@@ -17,6 +17,7 @@ class GetMe extends Action
     */
     public function init(): void
     {
+        $this->name('telegram.get.me');
     }
 
     /**

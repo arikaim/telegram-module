@@ -17,6 +17,7 @@ class SendMessage extends Action
     */
     public function init(): void
     {
+        $this->name('telegram.send.message');
     }
 
     /**
