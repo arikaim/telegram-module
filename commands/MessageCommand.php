@@ -50,16 +50,18 @@ class MessageCommand extends SystemCommand
         global $arikaim;
 
         $message = $this->getMessage();
-    
+        $from = $message->getFrom();
+
         // trigger event
         $arikaim->get('event')->dispatch('telegram.bot.message',[
-            'message_id'   => $message->getMessageId(),
+            'command'      => $message->getCommand(),
             'bot_username' => $this->telegram->getBotUsername(),
-            'message'      => $message->getText(true),
-            'from'         => $message->getFrom(),
-            'user_id'      => $message->getFrom()->getId(),
+            'from'         => $from,
+            'user_id'      => $from->getId(),
+            'name'         => $from->getFirstName() . ' ' . $from->getLastName(),
             'chat'         => $message->getChat(),
-            'chat_id'      => $message->getChat()->getId()
+            'chat_id'      => $message->getChat()->getId(),
+            'message'      => $message->getText(true),
         ]);
 
         return Request::emptyResponse();

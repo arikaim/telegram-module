@@ -50,13 +50,15 @@ class SendMessageCommand extends UserCommand
         global $arikaim;
 
         $message = $this->getMessage();
-     
+        $from = $message->getFrom();
+        
         // trigger event
         $arikaim->get('event')->dispatch('telegram.bot.command',[
             'command'      => $message->getCommand(),
             'bot_username' => $this->telegram->getBotUsername(),
-            'from'         => $message->getFrom(),
-            'user_id'      => $message->getFrom()->getId(),
+            'from'         => $from,
+            'user_id'      => $from->getId(),
+            'name'         => $from->getFirstName() . ' ' . $from->getLastName(),
             'chat'         => $message->getChat(),
             'chat_id'      => $message->getChat()->getId(),
             'message'      => $message->getText(true),
