@@ -26,7 +26,7 @@ class StartCommand extends UserCommand
     /**
      * @var string
      */
-    protected $description = 'Start command';
+    protected $description = 'Start';
 
     /**
      * @var string

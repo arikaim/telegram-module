@@ -25,7 +25,7 @@ class NotFoundCommand extends SystemCommand
     /**
      * @var string
      */
-    protected $description = 'Handle not found command';
+    protected $description = 'Command not found';
 
     /**
      * @var string

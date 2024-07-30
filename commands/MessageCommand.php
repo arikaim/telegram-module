@@ -26,7 +26,7 @@ class MessageCommand extends SystemCommand
     /**
      * @var string
      */
-    protected $description = 'Handle message';
+    protected $description = 'Message';
 
     /**
      * @var string
