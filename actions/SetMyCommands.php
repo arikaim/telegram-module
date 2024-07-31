@@ -38,6 +38,10 @@ class SetMyCommands extends Action
             return false;
         }
 
+        if (\is_string($commandClasses) == true) {
+            $commandClasses = \explode(PHP_EOL,$commandClasses);
+        }
+
         $commands = [];
         foreach ($commandClasses as $commandClass) {
             $command = new $commandClass($driver->telegram());
@@ -70,7 +74,7 @@ class SetMyCommands extends Action
         $this->descriptor->get('options')->property('commands',function($property) {
             $property
                 ->title('Commands classes')
-                ->type('list')                      
+                ->type('text-area')                      
                 ->readonly(false);              
         }); 
     }
