@@ -90,7 +90,9 @@ class TelegramApiDriver implements DriverInterface
         $this->botUsername = \trim($properties->getValue('bot_username',''));
         $this->secretToken = $properties->getValue('secret_token',null);
 
-        $this->telegram = new Telegram($apiKey,$this->botUsername);
+        if (empty($apiKey) == false && empty($this->botUsername) == false) {
+            $this->telegram = new Telegram($apiKey,$this->botUsername);
+        }
     }
 
     /**
