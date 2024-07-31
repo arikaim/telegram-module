@@ -38,8 +38,8 @@ class SetMyCommands extends Action
             return false;
         }
 
-        if (\is_string($commandClasses) == true) {
-            $commandClasses = \explode(PHP_EOL,$commandClasses);
+        if (\is_string($commandClasses) == true) {         
+            $commandClasses = \explode("\n",str_replace("\r",'',$commandClasses));
         }
 
         $commands = [];
